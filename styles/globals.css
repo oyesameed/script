@@ -2,20 +2,162 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* globals.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Oswald:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-open-sans: 'Open Sans', sans-serif;
+  --font-lato: 'Lato', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-oswald: 'Oswald', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-raleway: 'Raleway', sans-serif;
+  --font-nunito: 'Nunito', sans-serif;
+  --font-merriweather: 'Merriweather', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Tailwind Font Classes */
+/* .font-roboto {
+  font-family: var(--font-roboto);
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.font-open-sans {
+  font-family: var(--font-open-sans);
 }
+
+.font-lato {
+  font-family: var(--font-lato);
+}
+
+.font-montserrat {
+  font-family: var(--font-montserrat);
+}
+
+.font-oswald {
+  font-family: var(--font-oswald);
+}
+
+.font-poppins {
+  font-family: var(--font-poppins);
+}
+
+.font-raleway {
+  font-family: var(--font-raleway);
+}
+
+.font-nunito {
+  font-family: var(--font-nunito);
+}
+
+.font-merriweather {
+  font-family: var(--font-merriweather);
+} */
+
+
+ 
+.embla__ios-picker {
+    /* background: #fff; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    min-width: 50%;
+    justify-content: center;
+    line-height: 1;
+    font-size: 1.8rem;
+}
+.embla__ios-picker__scene {
+    color: #000; 
+    min-width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    touch-action: pan-x;
+}
+.embla__ios-picker__viewport {
+    /* background: #ffffff; */
+    height: 60px;
+    width: 100%;
+    perspective: 1000px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+ 
+.embla__ios-picker__container {
+    height: 100%;
+    width: 100%;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.embla__ios-picker__slide {
+    width: 100%;
+    height: 100%;
+    font-size: 35px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    opacity: 0;
+}
+
+
+
+
+/* .embla__ios-picker__viewport--perspective-left {
+    perspective-origin: calc(50% + 130px) 50%;
+    transform: translateX(27px);
+}
+.embla__ios-picker__viewport--perspective-right {
+    perspective-origin: calc(50% - 130px) 50%;
+    transform: translateX(-27px);
+} */
+
+
+/* .embla {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    max-width: 30rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+.embla:before,
+.embla:after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    content: '';
+    display: block;
+    height: calc(50% - 32px / 2);
+    z-index: 1;
+    pointer-events: none;
+}
+.embla:before {
+    top: -0.5px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+    background: linear-gradient(
+        to top,
+        rgba(101, 5, 5, 0.65) 0%, 
+        rgba(255, 255, 255, 1) 100%    
+    );
+}
+.embla:after {
+    bottom: -0.5px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.1); 
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.65) 0%, 
+        rgba(255, 255, 255, 1) 100%   
+    );
+} */
