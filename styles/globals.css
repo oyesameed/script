@@ -1,62 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-/* globals.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Oswald:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Nunito:wght@400;700&family=Merriweather:wght@400;700&display=swap');
-
-:root {
-  --font-roboto: 'Roboto', sans-serif;
-  --font-open-sans: 'Open Sans', sans-serif;
-  --font-lato: 'Lato', sans-serif;
-  --font-montserrat: 'Montserrat', sans-serif;
-  --font-oswald: 'Oswald', sans-serif;
-  --font-poppins: 'Poppins', sans-serif;
-  --font-raleway: 'Raleway', sans-serif;
-  --font-nunito: 'Nunito', sans-serif;
-  --font-merriweather: 'Merriweather', serif;
-}
-
-/* Tailwind Font Classes */
-/* .font-roboto {
-  font-family: var(--font-roboto);
-}
-
-.font-open-sans {
-  font-family: var(--font-open-sans);
-}
-
-.font-lato {
-  font-family: var(--font-lato);
-}
-
-.font-montserrat {
-  font-family: var(--font-montserrat);
-}
-
-.font-oswald {
-  font-family: var(--font-oswald);
-}
-
-.font-poppins {
-  font-family: var(--font-poppins);
-}
-
-.font-raleway {
-  font-family: var(--font-raleway);
-}
-
-.font-nunito {
-  font-family: var(--font-nunito);
-}
-
-.font-merriweather {
-  font-family: var(--font-merriweather);
-} */
-
-
  
 .embla__ios-picker {
     /* background: #fff; */
@@ -69,7 +13,7 @@
     font-size: 1.8rem;
 }
 .embla__ios-picker__scene {
-    color: #000; 
+    color: #8b8b9f37; 
     min-width: 100%;
     height: 100%;
     overflow: hidden;
@@ -99,65 +43,92 @@
 }
 
 .embla__ios-picker__slide {
+
     width: 100%;
     height: 100%;
     font-size: 35px;
-    text-align: center;
+    text-align: left !important;
     display: flex;
     align-items: center;
     justify-content: center;
     backface-visibility: hidden;
-    opacity: 0;
 }
 
 
 
 
 /* .embla__ios-picker__viewport--perspective-left {
-    perspective-origin: calc(50% + 130px) 50%;
-    transform: translateX(27px);
+  perspective-origin: calc(50% + 130px) 50%;
+  transform: translateX(27px);
 }
+
 .embla__ios-picker__viewport--perspective-right {
-    perspective-origin: calc(50% - 130px) 50%;
-    transform: translateX(-27px);
+  perspective-origin: calc(50% - 130px) 50%;
+  transform: translateX(-27px);
 } */
 
 
-/* .embla {
+.embla {
     position: relative;
-    display: flex;
     width: 100%;
     height: 100%;
-    max-width: 30rem;
+    /* top: -64px; */
     margin-left: auto;
     margin-right: auto;
+    /* background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%); */
+    /* background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); */
 }
-.embla:before,
+
+/* Fading gradient at the top */
+/* .embla:before {
+    content: '';
+    position: absolute;
+    top: -0.5px;
+    left: 0;
+    right: 0;
+    height: 40px; 
+    border-bottom: 0.5px solid rgba(49, 49, 49, 0.3);
+    background: radial-gradient(linear, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    z-index: 1; 
+    pointer-events: none; 
+} */
+
+/* Fading gradient at the bottom */
+/* .embla:after {
+    content: '';
+    position: absolute;
+    bottom: -0.5px;
+    left: 0;
+    right: 0;
+    height: 40px; 
+    border-top: 0.5px solid rgba(49, 49, 49, 0.3);
+    background: radial-gradient(linear, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    z-index: 1; 
+    pointer-events: none; 
+} */
+
+
+/* .embla:before,
 .embla:after {
     position: absolute;
     left: 0;
     right: 0;
     content: '';
     display: block;
-    height: calc(50% - 32px / 2);
+    height: calc(50% - 100px / 2);
     z-index: 1;
     pointer-events: none;
-}
-.embla:before {
-    top: -0.5px;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
-    background: linear-gradient(
-        to top,
-        rgba(101, 5, 5, 0.65) 0%, 
-        rgba(255, 255, 255, 1) 100%    
-    );
-}
-.embla:after {
-    bottom: -0.5px;
-    border-top: 0.5px solid rgba(0, 0, 0, 0.1); 
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.65) 0%, 
-        rgba(255, 255, 255, 1) 100%   
-    );
 } */
+
+
+/* Button */
+/* Glass morphism */
+
+.btn {
+    background: rgba( 10, 32, 73, 0.1 );
+    box-shadow: 0 4px 12px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 12px );
+    -webkit-backdrop-filter: blur( 12px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}

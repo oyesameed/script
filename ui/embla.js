@@ -2,9 +2,14 @@ import React, { useEffect, useCallback, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 
 const CIRCLE_DEGREES = 360
-const WHEEL_ITEM_SIZE = 50
-const WHEEL_ITEM_COUNT = 12
-const WHEEL_ITEMS_IN_VIEW = 4
+
+// Size of individual slide
+const WHEEL_ITEM_SIZE = 60
+
+// No of array items i.e fonts
+const WHEEL_ITEM_COUNT = 16
+
+const WHEEL_ITEMS_IN_VIEW = 6
 
 // Constants for calculating wheel and item positions
 export const WHEEL_ITEM_RADIUS = CIRCLE_DEGREES / WHEEL_ITEM_COUNT
@@ -70,8 +75,8 @@ export const IosPickerItem = (props) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop,
     axis: 'y', // Scroll vertically
-    dragFree: true, // Allow free dragging
-    containScroll: false, // Disable scroll containment
+    dragFree: false, // Allow free dragging
+    containScroll: true, // Disable scroll containment
     watchSlides: false // Disable slide watch for performance
   })
   
@@ -96,6 +101,8 @@ export const IosPickerItem = (props) => {
 
   // Function to rotate the wheel based on scroll progress and update styles
   const rotateWheel = useCallback(
+
+
     (emblaApi) => {
       const rotation = slideCount * WHEEL_ITEM_RADIUS - rotationOffset
       const wheelRotation = rotation * emblaApi.scrollProgress()
@@ -114,15 +121,22 @@ export const IosPickerItem = (props) => {
   )
 
   useEffect(() => {
+
     if (!emblaApi) return
 
     // Event listener to handle pointer up (when user stops scrolling)
     emblaApi.on('pointerUp', (emblaApi) => {
+
       const { scrollTo, target, location } = emblaApi.internalEngine()
       const diffToTarget = target.get() - location.get()
       const factor = Math.abs(diffToTarget) < WHEEL_ITEM_SIZE / 2.5 ? 10 : 0.1
       const distance = diffToTarget * factor
       scrollTo.distance(distance, true) // Scroll smoothly to the target position
+
+      // Set font for download
+      props.setFont(slides[emblaApi.selectedScrollSnap()]);
+
+
     })
 
     // Update the wheel rotation on scroll
@@ -137,15 +151,16 @@ export const IosPickerItem = (props) => {
     // Initial setup
     inactivateEmblaTransform(emblaApi)
     rotateWheel(emblaApi)
-  }, [emblaApi, inactivateEmblaTransform, rotateWheel])
+  }, [emblaApi, inactivateEmblaTransform, rotateWheel]);
+
 
   return (
+
     <div className="embla__ios-picker">
         
       {/* Scene wrapper for the carousel */}
       <div className="embla__ios-picker__scene" ref={rootNodeRef}>
 
-        
         <div className={`embla__ios-picker__viewport embla__ios-picker__viewport--perspective-${perspective}`} ref={emblaRef}>
           
           {/* Container for the slides */}
@@ -154,13 +169,26 @@ export const IosPickerItem = (props) => {
             {/* Render each slide, apply red text color to the selected one */}
             {slides.map((slide, index) => (
               <div
-                className={`embla__ios-picker__slide !text-xl ${index === currentIndex ? 'text-red-800' : ''}`}
+                className={`embla__ios-picker__slide !text-xl ${index === currentIndex ? 'text-[#dfdfed]' : ''}`}
                 key={index}
-                style={{ fontFamily: `var(${slide})` }}
+                style={{ fontFamily: `var(${slide.value})` }}
               >
-                <div className='h-48'>
-                  {props.value}
-                </div>
+                
+                {index === currentIndex ? (
+
+                  <input
+                    value={props.value}
+                    className="border-none bg-transparent text-center w-full text-xl focus:outline-none"
+                    onInput={(e) => { props.setValue(e.target.value)}} 
+                  />
+
+                ) : (
+                  
+                  // Just display the text when not selected
+                  props.value
+
+                )}
+
               </div>
             ))}
             
