@@ -28,22 +28,31 @@ export default function Home() {
             if (!navigator.clipboard || !navigator.clipboard.write) {
 
 
-                // Download the image
-                const link = document.createElement('a');
-                link.href = dataUrl;
-                link.download = `${value}.png`;
-                link.click();
+                try {
+                    // Download the image
+                    const link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = `${value}.png`;
+                    link.click();
 
-                // Alert the user
-                setCopied(true);
-                
-                // Reset after 2 seconds
-                setTimeout(() => setCopied(false), 2000);
+                    // Alert the user
+                    setCopied(true);
+                    
+                    // Reset after 2 seconds
+                    setTimeout(() => setCopied(false), 2000);
 
-                // Alert the user that the image was downloaded
-                alert("Image downloaded. Please copy to clipboard.");
+                    // Alert the user that the image was downloaded
+                    alert("Image downloaded. Please copy to clipboard.");
 
-                return;
+                    return;
+
+                } catch {
+                    
+                    // Alert the user that the image was not downloaded
+                    alert("Failed to download image. Please copy to clipboard.");
+                }
+
+               
             }
 
             // Generate response from the 
