@@ -27,30 +27,22 @@ export default function Home() {
             // Check if clipboard API is available
             if (!navigator.clipboard || !navigator.clipboard.write) {
 
+                // Alert the user
+                alert("Failed to copy image to clipboard. Please copy to clipboard manually.");
 
-                try {
-                    // Download the image
-                    const link = document.createElement('a');
-                    link.href = dataUrl;
-                    link.download = `${value}.png`;
-                    link.click();
+                // Download the image
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = `${value}.png`;
+                link.click();
 
-                    // Alert the user
-                    setCopied(true);
-                    
-                    // Reset after 2 seconds
-                    setTimeout(() => setCopied(false), 2000);
+                // Alert the user
+                setCopied(true);
 
-                    // Alert the user that the image was downloaded
-                    alert("Image downloaded. Please copy to clipboard.");
+                // Reset after 2 seconds
+                setTimeout(() => setCopied(false), 2000);
 
-                    return;
-
-                } catch {
-                    
-                    // Alert the user that the image was not downloaded
-                    alert("Failed to download image. Please copy to clipboard.");
-                }
+                return;
 
                
             }
