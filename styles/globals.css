@@ -3,14 +3,12 @@
 @tailwind utilities;
  
 .embla__ios-picker {
-    /* background: #fff; */
     height: 100%;
     display: flex;
     align-items: center;
     min-width: 50%;
     justify-content: center;
     line-height: 1;
-    font-size: 1.8rem;
 }
 .embla__ios-picker__scene {
     color: #8b8b9f37; 
@@ -22,10 +20,9 @@
     touch-action: pan-x;
 }
 .embla__ios-picker__viewport {
-    /* background: #ffffff; */
     height: 60px;
     width: 100%;
-    perspective: 1000px;
+    perspective: 2000px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -46,7 +43,7 @@
 
     width: 100%;
     height: 100%;
-    font-size: 35px;
+    font-size: 12px;
     text-align: left !important;
     display: flex;
     align-items: center;
@@ -126,9 +123,18 @@
 /* Glass morphism */
 
 .btn {
-    background: rgba( 10, 32, 73, 0.1 );
-    box-shadow: 0 4px 12px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 12px );
-    -webkit-backdrop-filter: blur( 12px );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    background: rgba(255, 255, 255, 0.05); /* Lighter and more transparent */
+    box-shadow: none; /* Remove shadow for full transparency */
+    backdrop-filter: blur(4px); /* Reduce blur for subtle effect */
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    color: white; /* Ensure text remains visible */
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+    background: rgba(255, 255, 255, 0.15); /* Slightly more opaque on hover */
+    transform: scale(1.05); /* Add hover effect */
 }

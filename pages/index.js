@@ -1,4 +1,5 @@
 import { IosPickerItem } from "@/ui/embla";
+import Head from "next/head";
 import { useState } from "react";
 import text2png from "text2png";
 
@@ -15,13 +16,38 @@ export default function Home() {
         // Generate the image data URL
         const dataUrl = text2png(value, {
             font: `500px ${font.name}`,
-            localFontName: font,
+            localFontName: font.name,
             color: "black",
             output: 'dataURL',
         });
 
         // Copy the image to the clipboard
         try {
+
+            // Check if clipboard API is available
+            if (!navigator.clipboard || !navigator.clipboard.write) {
+
+
+                // Download the image
+                const link = document.createElement('a');
+                link.href = dataUrl;
+                link.download = `${value}.png`;
+                link.click();
+
+                // Alert the user
+                setCopied(true);
+                
+                // Reset after 2 seconds
+                setTimeout(() => setCopied(false), 2000);
+
+                // Alert the user that the image was downloaded
+                alert("Image downloaded. Please copy to clipboard.");
+
+                return;
+            }
+
+            // Generate response from the 
+            // image data URL and blob
             const response = await fetch(dataUrl);
             const blob = await response.blob();
 
@@ -32,10 +58,15 @@ export default function Home() {
                 })
             ]);
 
+            // Alert the user
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
+
+            // Reset after 2 seconds
+            setTimeout(() => setCopied(false), 2000);
 
         } catch (error) {
+
+            // Handle errors
             console.error("Failed to copy image to clipboard", error);
         }
     };
@@ -62,17 +93,21 @@ export default function Home() {
       
     // Markup
     return (
-        <div className="h-screen bg-[#161618] flex flex-col">
+        <div className="h-screen bg-[#161618] relative flex flex-col">
+    {/* Meta */}
+    <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    </Head>
 
     {/* Header */}
-    <div className="flex items-center justify-center h-16 p-4 text-white">
+    <div className="absolute top-0 left-0 right-0 z-10 bg-transparent flex items-center justify-center h-16 p-4 text-white">
         {/* Logo */}
         <img src="/logo.svg" className="w-auto h-6" alt="Logo" />
     </div>
 
     {/* Fonts */}
-    <div className="flex-1 flex items-center justify-center overflow-hidden">
-        <div className="embla">
+    <div className="flex-1 h-screen flex items-center justify-center overflow-hidden relative z-0">
+        <div className="embla w-full h-full flex items-center justify-center">
             <IosPickerItem
                 setValue={setValue}
                 setFont={setFont}
@@ -86,8 +121,7 @@ export default function Home() {
     </div>
 
     {/* Footer */}
-    <div className="flex items-center justify-center h-16 py-12 px-10 text-white">
-
+    <div className="fixed bottom-0 left-0 right-0 z-10 flex items-center justify-center h-16 py-12 px-10 text-white">
         {/* Download button */}
         <button
             className="btn w-full px-4 py-3 rounded-2xl"
@@ -96,6 +130,8 @@ export default function Home() {
             {copied ? "Copied!" : "Copy to Clipboard"}
         </button>
     </div>
+
 </div>
+
     );
 }

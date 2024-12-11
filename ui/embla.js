@@ -1,14 +1,17 @@
 import React, { useEffect, useCallback, useRef, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 
-const CIRCLE_DEGREES = 360
+// Circle degree
+// Change to 360 for looping effect
+const CIRCLE_DEGREES = 180
 
 // Size of individual slide
-const WHEEL_ITEM_SIZE = 60
+const WHEEL_ITEM_SIZE = 100
 
 // No of array items i.e fonts
 const WHEEL_ITEM_COUNT = 16
 
+// No of items in view
 const WHEEL_ITEMS_IN_VIEW = 6
 
 // Constants for calculating wheel and item positions
@@ -24,6 +27,7 @@ const isInView = (wheelLocation, slidePosition) =>
 
 // Function to set styles for each slide
 const setSlideStyles = (emblaApi, index, loop, slideCount, totalRadius) => {
+  
   const slideNode = emblaApi.slideNodes()[index]
   const wheelLocation = emblaApi.scrollProgress() * totalRadius
   const positionDefault = emblaApi.scrollSnapList()[index] * totalRadius
@@ -73,10 +77,22 @@ export const IosPickerItem = (props) => {
 
   // Use Embla carousel hook to initialize the carousel functionality
   const [emblaRef, emblaApi] = useEmblaCarousel({
+
     loop,
     axis: 'y', // Scroll vertically
-    dragFree: false, // Allow free dragging
-    containScroll: true, // Disable scroll containment
+
+    // Allow free dragging
+    // Disable or else it misbehaves
+    dragFree: false, 
+
+    // Disable scroll containment
+    containScroll: false,
+    startIndex: 5,
+
+    // dragThreshold: 1000,
+
+    skipSnaps: true,
+    align: "center",
     watchSlides: false // Disable slide watch for performance
   })
   
