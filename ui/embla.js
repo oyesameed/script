@@ -4,10 +4,10 @@ import useEmblaCarousel from 'embla-carousel-react';
 // Constants for carousel configuration
 
 // CIRCLE_DEGREES determines the total degrees for the wheel effect
-const CIRCLE_DEGREES = 180; 
+const CIRCLE_DEGREES = 120; 
 
 // WHEEL_ITEM_SIZE defines the size of each individual slide item
-const WHEEL_ITEM_SIZE = 100; 
+const WHEEL_ITEM_SIZE = 140; 
 
 // WHEEL_ITEM_COUNT represents the total number of items (e.g., fonts) in the carousel
 const WHEEL_ITEM_COUNT = 16; 
@@ -90,7 +90,7 @@ export const IosPickerItem = (props) => {
         containScroll: false, // Disable scroll containment
         startIndex: 5,
         skipSnaps: true,
-        align: "center",
+        align: "start",
         watchSlides: false // Disable slide watch for performance
     });
   
@@ -191,7 +191,7 @@ export const IosPickerItem = (props) => {
             {slides.map((slide, index) => (
 
               <div
-                className={`embla__ios-picker__slide !text-xl ${index === currentIndex ? 'text-[#dfdfed]' : ''}`}
+                className={`embla__ios-picker__slide !text-left !text-xl ${index === currentIndex ? 'text-[#dfdfed]' : ''}`}
                 key={index}
                 style={{ fontFamily: `var(${slide.value})` }}
               >
@@ -199,7 +199,7 @@ export const IosPickerItem = (props) => {
 
                   <input
                     value={props.value}
-                    className="border-none bg-transparent text-center w-full text-xl focus:outline-none"
+                    className="border-none bg-transparent !text-left w-full text-xl focus:outline-none"
                     onInput={(e) => { props.setValue(e.target.value); }} 
                   />
 
@@ -223,7 +223,7 @@ export const IosPickerItem = (props) => {
 // Wrapper component for the iOS picker
 export const FontPicker = ({ fonts, setValue, setFont, value }) => (
   
-  <div className="embla w-full h-full flex items-center justify-center">
+  <div className="embla w-full h-full flex !text-start items-center justify-center">
       <IosPickerItem
           setValue={setValue}
           setFont={setFont}

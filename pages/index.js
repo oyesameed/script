@@ -14,7 +14,7 @@ export default function Home() {
     // Function to detect iOS devices
     useEffect(() => {
 
-        // Detect iOS devices
+        // Detect if the device is iOS
         setIsIOS(detectIOS());
 
     }, []);
@@ -29,9 +29,12 @@ export default function Home() {
         </Head>
 
         {/* Header */}
-        <div className="absolute top-0 left-0 right-0 z-10 bg-transparent flex items-center justify-center h-16 p-4 text-white">
+        <div className="absolute top-0 left-0 right-0 z-10 bg-transparent flex items-center justify-start h-16 px-8 py-10 text-white">
             {/* Logo */}
             <img src="/logo.svg" className="w-auto h-6" alt="Logo" />
+
+            {/* <img src="/icons/5.svg" className="w-auto h-10" alt="Logo" /> */}
+
         </div>
 
         {/* Fonts */}

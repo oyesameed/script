@@ -5,7 +5,7 @@
 /* Button */
 /* Glass morphism */
 .btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: #1c1c20;
     box-shadow: none;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
@@ -17,8 +17,8 @@
 }
 
 .btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: scale(1.05);
+    background: #26262d;
+    transform: scale(1.02);
 }
 
 
@@ -40,7 +40,7 @@
     height: 100%;
     display: flex;
     align-items: center;
-    min-width: 50%;
+    min-width: 100%;
     justify-content: center;
     line-height: 1;
 }
@@ -60,7 +60,8 @@
 .embla__ios-picker__viewport {
     height: 60px;
     width: 100%;
-    perspective: 2000px;
+    text-align: left !important;
+    perspective: 3000px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -85,8 +86,9 @@
     font-size: 12px;
     text-align: left !important;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-left: 4rem;
+    align-items: start;
+    justify-content: start;
     backface-visibility: hidden;
 }
 
