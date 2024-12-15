@@ -1,74 +1,81 @@
 import { IosPickerItem } from "@/ui/embla";
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import text2png from "text2png";
 
 export default function Home() {
-
     // State
     const [value, setValue] = useState("silence is art maybe");
     const [font, setFont] = useState("Montserrat");
     const [copied, setCopied] = useState(false);
+    const [isIOS, setIsIOS] = useState(false);
 
-    // Function to generate and download the text image
-    const download = async () => {
+    useEffect(() => {
+        // Detect iOS devices
+        setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream);
+    }, []);
 
-        // Generate the image data URL
-        const dataUrl = text2png(value, {
+    // Function to generate the text image
+    const generateImage = () => {
+        return text2png(value, {
             font: `500px ${font.name}`,
             localFontName: font.name,
             color: "black",
             output: 'dataURL',
         });
+    };
 
-        // Copy the image to the clipboard
-        try {
+    // Function to handle sharing
+    const handleShare = async () => {
+        const dataUrl = generateImage();
 
-            // Check if clipboard API is available
-            if (!navigator.clipboard || !navigator.clipboard.write) {
+        if (isIOS) {
+            try {
+                const blob = await (await fetch(dataUrl)).blob();
+                const file = new File([blob], 'text-image.png', { type: 'image/png' });
+                
+                if (navigator.share) {
+                    await navigator.share({
+                        files: [file],
+                        title: 'Shared Text Image',
+                        text: 'Check out this text image!',
+                    });
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                } else {
+                    throw new Error('Web Share API not supported');
+                }
+            } catch (error) {
+                console.error("Error sharing:", error);
+                alert("Sharing failed. Please try copying the image manually.");
+            }
+        } else {
+            // For Android and other devices, use the existing clipboard functionality
+            try {
+                const response = await fetch(dataUrl);
+                const blob = await response.blob();
 
-                // Alert the user
-                alert("Failed to copy image to clipboard. Please copy to clipboard manually.");
+                if (navigator.clipboard && navigator.clipboard.write) {
+                    await navigator.clipboard.write([
+                        new ClipboardItem({
+                            [blob.type]: blob
+                        })
+                    ]);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                } else {
+                    throw new Error('Clipboard API not supported');
+                }
+            } catch (error) {
+                console.error("Failed to copy image to clipboard", error);
+                alert("Failed to copy image. Please try saving it manually.");
 
-                // Download the image
+                // Fallback to download
                 const link = document.createElement('a');
                 link.href = dataUrl;
                 link.download = `${value}.png`;
                 link.click();
-
-                // Alert the user
-                setCopied(true);
-
-                // Reset after 2 seconds
-                setTimeout(() => setCopied(false), 2000);
-
-                return;
-
-               
             }
-
-            // Generate response from the 
-            // image data URL and blob
-            const response = await fetch(dataUrl);
-            const blob = await response.blob();
-
-            // Write the image to the clipboard
-            await navigator.clipboard.write([
-                new ClipboardItem({
-                    [blob.type]: blob
-                })
-            ]);
-
-            // Alert the user
-            setCopied(true);
-
-            // Reset after 2 seconds
-            setTimeout(() => setCopied(false), 2000);
-
-        } catch (error) {
-
-            // Handle errors
-            console.error("Failed to copy image to clipboard", error);
         }
     };
 
@@ -126,7 +133,7 @@ export default function Home() {
         {/* Download button */}
         <button
             className="btn w-full px-4 py-3 rounded-2xl"
-            onClick={() => download()}
+            onClick={() => handleShare()}
         >
             {copied ? "Copied!" : "Copy to Clipboard"}
         </button>
