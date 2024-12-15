@@ -1,7 +1,7 @@
-import { IosPickerItem } from "@/ui/embla";
+import { FontPicker } from "@/ui/embla";
+import { detectIOS, FONTS, generateImage } from "@/ui/utils";
 import Head from "next/head";
 import { useState, useEffect } from "react";
-import text2png from "text2png";
 
 export default function Home() {
 
@@ -15,28 +15,19 @@ export default function Home() {
     useEffect(() => {
 
         // Detect iOS devices
-        setIsIOS(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream);
+        setIsIOS(detectIOS());
 
     }, []);
-
-    // Function to generate the text image
-    const generateImage = () => {
-        return text2png(value, {
-            font: `500px ${font.name}`,
-            localFontName: font.name,
-            color: "black",
-            output: 'dataURL',
-        });
-    };
 
     // Function to handle sharing
     const handleShare = async () => {
 
         // Generate the image data URL
-        const dataUrl = generateImage();
+        const dataUrl = generateImage(value, font);
 
         // Check if the device is iOS
         if (isIOS) {
+
             try {
 
                 // Generate the file object
@@ -116,24 +107,7 @@ export default function Home() {
     };
 
     // Fonts
-    const fonts = [
-        { name: "Raleway", value: "--font-raleway" },
-        { name: "Cabin", value: "--font-cabin" },
-        { name: "Dancing Script", value: "--font-dancing-script" },
-        { name: "Anton", value: "--font-anton" },
-        { name: "Caveat", value: "--font-caveat" },
-        { name: "Shadows Into Light", value: "--font-shadows-into-light" },
-        { name: "Satisfy", value: "--font-satisfy" },
-        { name: "Doto", value: "--font-doto" },
-        { name: "Permanent Marker", value: "--font-permanent-marker" },
-        { name: "Indie Flower", value: "--font-indie-flower" },
-        { name: "Amatic SC", value: "--font-amatic-sc" },
-        { name: "Bangers", value: "--font-bangers" },
-        { name: "Silkscreen", value: "--font-silkscreen" },
-        { name: "Gloria Hallelujah", value: "--font-gloria-hallelujah" },
-        { name: "Sacramento", value: "--font-sacramento" },
-        { name: "Zeyada", value: "--font-zeyada" }
-    ];
+   
       
     // Markup
     return <div className="h-screen bg-[#161618] relative flex flex-col">
@@ -150,19 +124,12 @@ export default function Home() {
         </div>
 
         {/* Fonts */}
-        <div className="flex-1 h-screen flex items-center justify-center overflow-hidden relative z-0">
-            <div className="embla w-full h-full flex items-center justify-center">
-                <IosPickerItem
-                    setValue={setValue}
-                    setFont={setFont}
-                    value={value}
-                    slideCount={fonts.length}
-                    perspective="left"
-                    loop={false}
-                    slides={fonts}
-                />
-            </div>
-        </div>
+        <FontPicker
+            setValue={setValue}
+            setFont={setFont}
+            value={value}
+            fonts={FONTS}
+        />
 
         {/* Footer */}
         <div className="fixed bottom-0 left-0 right-0 z-10 flex items-center justify-center h-16 py-12 px-10 text-white">

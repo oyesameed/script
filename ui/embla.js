@@ -219,3 +219,19 @@ export const IosPickerItem = (props) => {
     </div>
   );
 };
+
+// Wrapper component for the iOS picker
+export const FontPicker = ({ fonts, setValue, setFont, value }) => (
+  
+  <div className="embla w-full h-full flex items-center justify-center">
+      <IosPickerItem
+          setValue={setValue}
+          setFont={setFont}
+          value={value}
+          slideCount={fonts.length}
+          perspective="left"
+          loop={false}
+          slides={fonts}
+      />
+  </div>
+);
