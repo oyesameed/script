@@ -81,6 +81,14 @@ export const IosPickerItem = (props) => {
 
     const { perspective, loop = false, slides = [] } = props; // Accept slides as a prop
     const slideCount = slides.length;
+    const audioRef = useRef(null);
+
+
+    useEffect(() => {
+      if (audioRef.current) {
+        audioRef.current.load();
+      }
+    }, []);
 
     // Initialize Embla carousel hook with custom configuration
     const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -123,6 +131,15 @@ export const IosPickerItem = (props) => {
 
     (emblaApi) => {
 
+
+      // Play meow sound
+        if (audioRef.current) {
+          
+          audioRef.current.play().catch(error => {
+            console.error('Error playing audio:', error);
+          });
+        }
+
         const rotation = slideCount * WHEEL_ITEM_RADIUS - rotationOffset;
         const wheelRotation = rotation * emblaApi.scrollProgress();
         setContainerStyles(emblaApi, wheelRotation);
@@ -147,6 +164,20 @@ export const IosPickerItem = (props) => {
 
         // Event listener for when the user stops scrolling (pointer up)
         emblaApi.on('pointerUp', (emblaApi) => {
+
+
+          if (audioRef.current) {
+
+            console.log(audioRef.current);
+
+            if (!audioRef.current.paused) {
+                console.log('Audio is playing, now pausing...');
+                audioRef.current.pause();
+                sound.currentTime = 0;
+            } else {
+                console.log('Audio is already paused.');
+            }
+          }
 
             const { scrollTo, target, location } = emblaApi.internalEngine();
             const diffToTarget = target.get() - location.get();
@@ -173,6 +204,15 @@ export const IosPickerItem = (props) => {
         // Initial setup
         inactivateEmblaTransform(emblaApi);
         rotateWheel(emblaApi);
+
+        return () => {
+          
+          // Cleanup sound on unmount
+          if (audioRef.current) {
+            // audioRef.current.pause();
+            // audioRef.current = null;
+          }
+        };
 
     }, [emblaApi, inactivateEmblaTransform, rotateWheel]);
 
@@ -208,6 +248,11 @@ export const IosPickerItem = (props) => {
                   // Just display the text when not selected
                   props.value
                 )}
+
+                <audio ref={audioRef} className='hidden'>
+                  <source src="/click-2.mp3" type="audio/mpeg" />
+                  Your browser does not support the audio element.
+                </audio>
               </div>
 
             ))}
@@ -233,5 +278,6 @@ export const FontPicker = ({ fonts, setValue, setFont, value }) => (
           loop={false}
           slides={fonts}
       />
+      
   </div>
 );
