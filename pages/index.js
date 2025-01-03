@@ -21,7 +21,7 @@ export default function Home() {
    
       
     // Markup
-    return <div className="h-screen bg-[#161618] relative flex flex-col">
+    return <div className="h-screen bg-white relative flex flex-col">
 
         {/* Meta */}
         <Head>
@@ -29,7 +29,7 @@ export default function Home() {
         </Head>
 
         {/* Header */}
-        <div className="absolute top-0 left-0 right-0 z-10 bg-transparent flex items-center justify-start h-16 px-8 py-10 text-white">
+        <div className="absolute top-0 left-0 right-0 z-10 bg-transparent flex items-center justify-start h-16 px-8 py-10 text-black">
             {/* Logo */}
             <img src="/logo.svg" className="w-auto h-6" alt="Logo" />
 

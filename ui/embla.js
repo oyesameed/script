@@ -181,7 +181,7 @@ export const IosPickerItem = (props) => {
     <div className="embla__ios-picker">
 
       {/* Scene wrapper for the carousel */}
-      <div className="embla__ios-picker__scene" ref={rootNodeRef}>
+      <div className="embla__ios-picker__scene text-gray" ref={rootNodeRef}>
         <div className={`embla__ios-picker__viewport embla__ios-picker__viewport--perspective-${perspective}`} ref={emblaRef}>
           
           {/* Container for the slides */}
@@ -191,13 +191,14 @@ export const IosPickerItem = (props) => {
             {slides.map((slide, index) => (
 
               <div
-                className={`embla__ios-picker__slide !text-left !text-xl ${index === currentIndex ? 'text-[#dfdfed]' : ''}`}
+                className={`embla__ios-picker__slide !text-left !text-xl ${index === currentIndex ? 'text-black' : ''}`}
                 key={index}
                 style={{ fontFamily: `var(${slide.value})` }}
               >
                 {index === currentIndex ? (
 
                   <input
+                    // autoFocus
                     value={props.value}
                     className="border-none bg-transparent !text-left w-full text-xl focus:outline-none"
                     onInput={(e) => { props.setValue(e.target.value); }} 
